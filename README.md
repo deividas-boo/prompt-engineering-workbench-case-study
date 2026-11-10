@@ -22,19 +22,43 @@ bank's four-level data classification scheme (Low, Moderate, Elevated and High) 
 
 A web app that checks a prompt before it's sent to an AI assistant. It works in five
 steps, with a simple idea behind them: first make the prompt safe, then make it better.
+The employee decides at every step and can always go back.
 
-1. **Write.** The employee enters a prompt and picks a role, such as engineer or
-   business analyst. The role decides which quality advice they get later.
-2. **Mask personal data.** Names, IBANs, citizen service numbers and similar data are
-   found automatically and replaced with placeholders such as `<PERSON>`. This step
-   only appears when something is found.
-3. **Security review.** A language model looks for internal information that patterns
-   can't catch, places each finding on one of the four levels, explains why it's a
-   problem and suggests a safer rewrite.
-4. **Quality score.** 28 rule-based checks score the prompt from 0 to 100 on task,
-   clarity, context, constraints and output, and suggest concrete additions.
-5. **Improve.** The model writes improved versions side by side. Picking one sends it
-   through the security steps again, so new text is always checked before it's saved.
+### 1. Write the prompt
+The employee enters a prompt and picks a role, such as engineer or business analyst.
+The role decides which quality advice they get later. A list of built-in test prompts
+makes it easy to try the tool at every security level.
+
+![Writing a prompt](images/1-write.png)
+
+### 2. Mask personal data
+Names, IBANs, citizen service numbers and similar data are found automatically and
+underlined. Everything that stays ticked is replaced with a placeholder such as
+`<PERSON>`. If Presidio flags something harmless, the employee can untick it. This
+step only appears when something is found.
+
+![Masking personal data](images/2-mask.png)
+
+### 3. Review the security check
+A language model looks for what patterns can't catch, such as internal systems,
+endpoints and architecture. Each finding gets a level, an explanation and a safer
+rewrite, which the employee can apply, decline or undo before accepting.
+
+![Security review with rewrites](images/3-security.png)
+
+### 4. Evaluate the quality
+The safe prompt is stored and scored from 0 to 100 on task, clarity, context,
+constraints and output. The advice appears as text to add to the prompt, with
+fillable blanks like `[length]`, and can be edited, removed or extended.
+
+![Quality score and advice](images/4-quality.png)
+
+### 5. Pick an improved version
+The model writes improved versions side by side. The employee can copy one straight
+to their AI assistant, or pick it to continue. Picking one runs it through steps 2
+and 3 again, so new text is always checked before it's stored.
+
+![Improved versions side by side](images/5-improve.png)
 
 ### Architecture
 
